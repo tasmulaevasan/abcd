@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Оценка понимания урока</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 20px;
+        }
+        /* --- Стили для счетчиков (ОБНОВЛЕНЫ) --- */
+        .counters {
+            display: flex;
+            justify-content: space-around;
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .counter-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px; /* Отступы вокруг блока */
+        }
+        .counter-value {
+            color: #d9534f;
+            font-size: 3em; /* Увеличенный размер числа */
+            display: block;
+            margin-bottom: 5px;
+        }
+        .counter-item div {
+             font-size: 1.2em; /* Увеличенный размер подписи */
+             font-weight: bold;
+             margin-bottom: 10px;
+        }
+        /* --- Стили для кнопок --- */
+        .control-buttons button {
+            margin: 3px;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .control-buttons .decrement {
+            background-color: #f0ad4e; /* Желтый для "отнять" */
+            color: white;
+            border-color: #eea236;
+        }
+        .control-buttons .reset {
+            background-color: #5cb85c; /* Зеленый для "сбросить" */
+            color: white;
+            border-color: #4cae4c;
+        }
+        .image-container {
+            display: inline-block;
+            position: relative;
+        }
+        img, area {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>    
+    <div class="counters">
+        <div class="counter-item">
+            <span id="counter1" class="counter-value">0</span>
+            <div class="control-buttons">
+                <button class="decrement" onclick="decrementCounter('counter1')">-1</button>
+                <button class="reset" onclick="resetCounter('counter1')">⟳</button>
+            </div>
+        </div>
+
+        <div class="counter-item">
+            <span id="counter2" class="counter-value">0</span>
+            <div class="control-buttons">
+                <button class="decrement" onclick="decrementCounter('counter2')">-1</button>
+                <button class="reset" onclick="resetCounter('counter2')">⟳</button>
+            </div>
+        </div>
+
+        <div class="counter-item">
+            <span id="counter3" class="counter-value">0</span>
+            <div class="control-buttons">
+                <button class="decrement" onclick="decrementCounter('counter3')">-1</button>
+                <button class="reset" onclick="resetCounter('counter3')">⟳</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="image-container">
+        <img 
+            src="a.jpg"
+            usemap="#moodmap"
+            style="max-width: 900px; width: 100%; height: auto;"
+        >
+
+        <map name="moodmap">
+            <area shape="rect" coords="0,0,300,1000" alt="Не понял" onclick="incrementCounter('counter1')">
+            <area shape="rect" coords="300,0,600,1000" alt="Трудности" onclick="incrementCounter('counter2')">
+            <area shape="rect" coords="600,0,900,1000" alt="Разобрался" onclick="incrementCounter('counter3')">
+        </map>
+
+    </div>
+
+    <script>
+        let counters = {
+            counter1: 0,
+            counter2: 0,
+            counter3: 0
+        };
+
+        function updateDisplay(counterId) {
+            const counterElement = document.getElementById(counterId);
+            if (counterElement) {
+                counterElement.textContent = counters[counterId];
+            }
+        }
+
+        // --- ФУНКЦИИ КОНТРОЛЯ ---
+
+        // УВЕЛИЧИТЬ (по клику на картинку)
+        function incrementCounter(counterId) {
+            counters[counterId]++;
+            updateDisplay(counterId);
+        }
+
+        // УМЕНЬШИТЬ (по клику на кнопку "Отнять 1")
+        function decrementCounter(counterId) {
+            if (counters[counterId] > 0) {
+                counters[counterId]--;
+                updateDisplay(counterId);
+            }
+        }
+
+        // СБРОСИТЬ (по клику на кнопку "Сбросить")
+        function resetCounter(counterId) {
+            counters[counterId] = 0;
+            updateDisplay(counterId);
+        }
+    </script>
+</body>
+</html>
